@@ -15,11 +15,43 @@ spring:
           uri: lb://CITY-SERVICE
           predicates:
             - Path=/api/v1/cities/**
-    eureka:
-      client:
-        register-with-eureka: true
-        fetch-registery: true
-        service-url:
-          defaultZone: http://localhost:8787/eureka/
-      instance:
-        hostname: localhost
+        - id: PRODUCT-SERVICE
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/products/**
+        - id: STOCK-SERVICE
+          uri: lb://STOCK-SERVICE
+          predicates:
+            - Path=/api/v1/stocks/**
+        - id: CHAT-SERVICE
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/stomp**
+        - id: USERS-SERVICE
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/api/v1/user/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: false
+            maxAge: 3600
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8787/eureka/
+  instance:
+    hostname: localhost
